@@ -6,5 +6,8 @@ use Illuminate\Http\Request;
 
 class TopController extends Controller
 {
-    //
+    //アプリのトップページを表示する
+    public function index() {
+        return view('top.index');
+    }
 }
