@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class MangaController extends Controller
+class TopController extends Controller
 {
-    // 
+    //
 }
