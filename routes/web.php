@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MangaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TopController;
 use Illuminate\Support\Facades\Route;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', [TopController::class, 'index']);
+Route::get('/mangas/search', [MangaController::class, 'search']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
