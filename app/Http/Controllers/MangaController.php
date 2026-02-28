@@ -21,4 +21,14 @@ class MangaController extends Controller
         // ビューにcompact内の文字で変数を使用できるようにして、検索結果を表示する
         return view('mangas.search', compact('mangas', 'query'));
     }
+
+    // 漫画詳細ページ
+    public function show($mal_id) {
+        // Jikan APIから特定の漫画の情報を取得する
+        $response = Http::get("https://api.jikan.moe/v4/manga/{$mal_id}");
+        // $responseから漫画のdataを取得する
+        $manga = $response->json()['data'];
+        // 詳細ページに遷移、該当ページで$mangaを使えるようにする
+        return view('mangas.show', compact('manga'));
+    }
 }
