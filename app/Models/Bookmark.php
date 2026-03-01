@@ -13,4 +13,10 @@ class Bookmark extends Model
     public function manga() {
         return $this->belongsTo(Manga::class);
     }
+
+    protected $fillable = [
+        'user_id',
+        'manga_id',
+        'type',
+    ];
 }

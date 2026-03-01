@@ -4,6 +4,16 @@
             {{ $manga['title_japanese'] ?? $manga['title'] }}
         </h2>
     </x-slot>
+    {{-- メッセージがあれば表示 --}}
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @if (session('message'))
+                <div class="mb-4 p-4 bg-green-100 text-green-700 rounded">
+                    {{ session('message') }}
+                </div>
+            @endif
+        </div>
+    </div>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-sm sm:rounded-lg p-6">
