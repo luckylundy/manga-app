@@ -47,6 +47,27 @@
                                 {{ $manga['synopsys'] ?? 'あらすじ情報なし' }}
                             </p>
                         </div>
+                        {{-- ブックマークボタン（ログイン時のみ表示） --}}
+                        @auth
+                            <div class="mt-6 flex gap-4">
+                                <form action="/bookmarks" method="post">
+                                    @csrf
+                                    <input type="hidden" name="mal_id" value="{{ $manga['mal_id'] }}">
+                                    <input type="hidden" name="type" value="favorite">
+                                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">
+                                        お気に入り
+                                    </button>
+                                </form>
+                                <form action="/bookmarks" method="post">
+                                    @csrf
+                                    <input type="hidden" name="mal_id" value="{{ $manga['mal_id'] }}">
+                                    <input type="hidden" name="type" value="want_to_read">
+                                    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">
+                                        読みたい
+                                    </button>
+                                </form>
+                            </div>
+                        @endauth
                     </div>
                 </div>
             </div>
