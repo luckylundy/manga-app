@@ -16,6 +16,11 @@ class MangaController extends Controller
             'q' => $query,
             'limit' => 10,
         ]);
+        // Jikan APIが正常に返ってこなかった場合
+        // $responseが返ってこないか、$responseにdataがない場合
+        if ($response->failed() || !isset($response->json()['data'])) {
+            return back()->with('message', 'APIからデータを取得できませんでした。少し時間をおいて再度お試しください。');
+        }
         // 返ってきたJSONから'data'を取り出す
         $mangas = $response->json()['data'];
         // ビューにcompact内の文字で変数を使用できるようにして、検索結果を表示する
