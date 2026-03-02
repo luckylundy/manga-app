@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\MangaController;
+use App\Http\Controllers\MypageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TopController;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +16,8 @@ Route::get('/mangas/search', [MangaController::class, 'search']);
 Route::get('/mangas/{mal_id}', [MangaController::class, 'show']);
 // ログインしているユーザーのみ
 Route::post('/bookmarks', [BookmarkController::class, 'store'])->middleware('auth');
+Route::delete('/bookmarks/{id}', [BookmarkController::class, 'destroy'])->middleware('auth');
+Route::get('/mypage', [MypageController::class, 'index'])->middleware('auth');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -15,6 +15,12 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="'/'" :active="request()->is('/')">
+                        検索
+                    </x-nav-link>
+                    <x-nav-link :href="'/mypage'" :active="request()->is('mypage')">
+                        マイページ
+                    </x-nav-link>
                 </div>
             </div>
 

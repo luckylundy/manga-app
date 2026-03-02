@@ -9,7 +9,7 @@ use App\Models\Bookmark;
 
 class BookmarkController extends Controller
 {
-    //
+    // ブックマークを保存する
     public function store(Request $request) {
         // mangasテーブルからリクエストと同じmal_idの漫画を取得
         $manga = Manga::where('mal_id', $request->mal_id)->first();
@@ -43,5 +43,15 @@ class BookmarkController extends Controller
         ]);
         // メッセージと一緒に元のページに戻る
         return back()->with('message', 'ブックマークしました！');
+    }
+
+    // ブックマークの削除
+    public function destroy($id) {
+        // リクエストのidと合致するidを持ち、ログインユーザーと一致するuser_idを持つブックマークを取得
+        $bookmark = Bookmark::where('id', $id)->where('user_id', auth()->id())->firstOrFail();
+        // 該当ブックマークを削除
+        $bookmark->delete();
+        // 直前の画面に戻る
+        return back()->with('message', 'ブックマークを削除しました！');
     }
 }
