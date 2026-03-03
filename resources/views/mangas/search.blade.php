@@ -6,6 +6,9 @@
     </x-slot>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <a href="/" class="text-blue-500 mb-4 inline-block">← 検索に戻る</a>
+            </div>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 @foreach ($mangas as $manga)
                     <a href="/mangas/{{ $manga['mal_id'] }}" class="bg-white shadow rounded p-4 hover:shadow-lg">
