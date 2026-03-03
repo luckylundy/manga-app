@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Bookmark extends Model
+class Review extends Model
 {
     // User,Mangaモデルとのリレーション
     public function user() {
@@ -19,6 +19,7 @@ class Bookmark extends Model
     protected $fillable = [
         'user_id',
         'manga_id',
-        'type',
+        'rating',
+        'comment',
     ];
 }

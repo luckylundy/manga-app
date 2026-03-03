@@ -9,10 +9,16 @@ class Manga extends Model
 {
     use HasFactory;
 
+    // リレーション
     public function bookmarks() {
         return $this->hasMany(Bookmark::class);
     }
 
+    public function reviews() {
+        return $this->hasMany(Review::class);
+    }
+
+    // 更新可能な属性
     protected $fillable = [
         'mal_id',
         'title',

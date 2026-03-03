@@ -9,8 +9,13 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+    // リレーション
     public function bookmarks() {
         return $this->hasMany(Bookmark::class);
+    }
+
+    public function reviews() {
+        return $this->hasMany(Review::class);
     }
 
     /** @use HasFactory<\Database\Factories\UserFactory> */
