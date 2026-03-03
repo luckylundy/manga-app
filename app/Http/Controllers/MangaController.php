@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use \App\Models\Manga;
+use \App\Models\Bookmark;
 
 class MangaController extends Controller
 {
@@ -33,7 +35,25 @@ class MangaController extends Controller
         $response = Http::get("https://api.jikan.moe/v4/manga/{$mal_id}");
         // $responseから漫画のdataを取得する
         $manga = $response->json()['data'];
+        // ログイン中であれば、この漫画のブックマークの状態を取得
+        $favorite = null;
+        $wantToRead = null;
+        if (auth()->check()) {
+            // この漫画の情報を取得
+            $mangaModel = Manga::where('mal_id', $mal_id)->first();
+            if ($mangaModel) {
+                $favorite = Bookmark::where('user_id', auth()->id())
+                    ->where('manga_id', $mangaModel->id)
+                    ->where('type', 'favorite')
+                    ->first();
+
+                $wantToRead = Bookmark::where('user_id', auth()->id())
+                    ->where('manga_id', $mangaModel->id)
+                    ->where('type', 'want_to_read')
+                    ->first();
+            }
+        }
         // 詳細ページに遷移、該当ページで$mangaを使えるようにする
-        return view('mangas.show', compact('manga'));
+        return view('mangas.show', compact('manga', 'favorite', 'wantToRead'));
     }
 }
