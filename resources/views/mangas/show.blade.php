@@ -16,6 +16,10 @@
     </div>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                {{-- 詳細ページには検索結果からもマイページからも来るので、検索画面ではなく前来たページに戻るようにする --}}
+                <a href="javascript:history.back()" class="text-blue-500 mb-4 inline-block">← 戻る</a>
+            </div>
             <div class="bg-white shadow-sm sm:rounded-lg p-6">
                 <div class="flex gap-6">
                     {{-- 左側：表紙画像 --}}

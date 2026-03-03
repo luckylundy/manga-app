@@ -24,6 +24,20 @@
                     </a>
                 @endforeach
             </div>
+            {{-- ページネーション --}}
+            <div class="mt-8 flex justify-center gap-4">
+                @if ($page > 1)
+                    <a href="/mangas/search?q={{ $query }}&page={{ $page - 1 }}" class="bg-white px-4 py-2 rounded shadow">
+                        ← 前へ
+                    </a>
+                @endif
+                <span class="px-4 py-2">{{ $page }} / {{ $lastPage }}</span>
+                @if ($page < $lastPage)
+                    <a href="/mangas/search?q={{ $query }}&page={{ $page + 1 }}" class="bg-white px-4 py-2 rounded shadow">
+                        次へ →
+                    </a>
+                @endif
+            </div>
         </div>
     </div>
 </x-app-layout>
