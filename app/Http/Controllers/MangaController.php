@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use \App\Models\Manga;
 use \App\Models\Bookmark;
+use \App\Models\Review;
 
 class MangaController extends Controller
 {
@@ -66,7 +67,25 @@ class MangaController extends Controller
                     ->first();
             }
         }
-        // 詳細ページに遷移、該当ページで$mangaを使えるようにする
-        return view('mangas.show', compact('manga', 'favorite', 'wantToRead'));
+        // レビュー格納用の空の変数を準備
+        $reviews = [];
+        $myReview = null;
+        // このアプリのDBから取得した漫画の情報を取得
+        $mangaModel = Manga::where('mal_id', $mal_id)->first();
+        if ($mangaModel) {
+            // この漫画の全てのレビューを取得
+            $reviews = Review::where('manga_id', $mangaModel->id)
+                ->with('user')
+                ->latest()
+                ->get();
+                if (auth()->check()) {
+                    // この漫画の自分のレビューを取得
+                    $myReview = Review::where('user_id', auth()->id())
+                        ->where('manga_id', $mangaModel->id)
+                        ->first();
+                }
+        }
+        // 詳細ページに遷移、該当ページで各変数を使えるようにする
+        return view('mangas.show', compact('manga', 'favorite', 'wantToRead', 'reviews', 'myReview'));
     }
 }

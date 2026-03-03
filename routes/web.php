@@ -5,6 +5,7 @@ use App\Http\Controllers\MangaController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TopController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -18,6 +19,8 @@ Route::get('/mangas/{mal_id}', [MangaController::class, 'show']);
 Route::post('/bookmarks', [BookmarkController::class, 'store'])->middleware('auth');
 Route::delete('/bookmarks/{id}', [BookmarkController::class, 'destroy'])->middleware('auth');
 Route::get('/mypage', [MypageController::class, 'index'])->middleware('auth');
+Route::post('/reviews', [ReviewController::class, 'store'])->middleware('auth');
+Route::delete('/reviews/{id}', [ReviewController::class, 'destroy'])->middleware('auth');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

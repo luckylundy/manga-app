@@ -103,9 +103,72 @@
                                         </button>
                                     </form>
                                 @endif
-                                
                             </div>
                         @endauth
+                        {{-- レビュー投稿フォーム --}}
+                        @auth
+                            <div class="mt-8 border-t pt-6">
+                                <h3 class="font-bold text-lg mb-4">
+                                    {{ $myReview ? 'レビューを編集' : 'レビューを投稿' }}
+                                </h3>
+                                <form action="/reviews" method="post">
+                                    @csrf
+                                    <input type="hidden" name="mal_id" value="{{ $manga['mal_id'] }}">
+
+                                    {{-- 星評価 --}}
+                                    <div class="mb-4">
+                                        <label class="font-bold block mb-2">評価</label>
+                                        <select name="rating" class="border rounded px-3 py-2">
+                                            @for ($i = 5; $i >= 1; $i--)
+                                                <option value="{{ $i }}" {{ ($myReview && $myReview->rating == $i) ? 'selected' : '' }}>
+                                                    {{ str_repeat('★', $i) }}{{ str_repeat('⭐︎', 5 - $i) }}
+                                                </option>
+                                            @endfor
+                                        </select>
+                                    </div>
+
+                                    {{-- 感想 --}}
+                                    <div class="mb-4">
+                                        <label class="font-bold block mb-2">感想（任意）</label>
+                                        <textarea name="comment" rows="4" class="border rounded px-3 py-2 w-full" placeholder="この漫画の感想を書いてください...">
+                                            {{ $myReview->comment ?? '' }}
+                                        </textarea>
+                                    </div>
+                                    <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded">
+                                        {{ $myReview ? '更新する' : '投稿する' }}
+                                    </button>
+                                </form>
+                            </div>
+                        @endauth
+
+                        {{-- レビュー一覧 --}}
+                        <div class="mt-8 border-t pt-6">
+                            <h3 class="font-bold text-lg mb-4">レビュー</h3>
+                            @if (count($reviews) === 0)
+                                <p class="text-gray-500">まだレビューはありません</p>
+                            @else
+                                @foreach ($reviews as $review)
+                                    <div class="mb-4 p-4 bg-gray-50 rounded">
+                                        <div class="flex justify-between items-center">
+                                            <div>
+                                                <span class="text-yellow-500">{{ str_repeat('★', $review->rating) }}{{ str_repeat('⭐︎', 5 - $review->rating) }}</span>
+                                                <span class="text-sm text-gray-500 ml-2">{{ $review->user->name }}</span>
+                                            </div>
+                                            @if (auth()->check() && auth()->id() === $review->user_id)
+                                                <form action="/reviews/{{ $review->id }}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="text-red-500 text-xs">削除</button>
+                                                </form>
+                                            @endif
+                                        </div>
+                                        @if ($review->comment)
+                                            <p class="mt-2 text-gray-700">{{ $review->comment }}</p>
+                                        @endif
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
