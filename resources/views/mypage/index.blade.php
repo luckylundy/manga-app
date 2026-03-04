@@ -63,6 +63,36 @@
                     @endforeach
                 </div>
             @endif
+            {{-- レビュー一覧 --}}
+            <h3 class="text-lg font-bold mb-4 mt-8">レビュー</h3>
+            @if ($reviews->isEmpty())
+                <p class="text-gray-500">レビューはまだありません</p>
+            @else
+                @foreach ($reviews as $review)
+                    <div class="mb-4 p-4 bg-white shadow rounded">
+                        <div class="flex justify-between items-center">
+                            <a href="/mangas/{{ $review->manga->mal_id }}" class="font-bold text-blue-500">
+                                {{ $review->manga->title_japanese ?? $review->manga->title }}
+                            </a>
+                            <form action="/reviews/{{ $review->id }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-500 text-xs">
+                                    削除
+                                </button>
+                            </form>
+                        </div>
+                        <span class="text-yellow-500">
+                            {{ str_repeat('★', $review->rating) }}{{ str_repeat('⭐︎', 5 - $review->rating) }}
+                        </span>
+                        @if ($review->comment)
+                            <p class="mt-2 text-gray-700">
+                                {{ $review->comment }}
+                            </p>
+                        @endif
+                    </div>
+                @endforeach
+            @endif
         </div>
     </div>
 </x-app-layout>

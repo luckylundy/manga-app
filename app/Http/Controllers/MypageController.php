@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Bookmark;
+use App\Models\Review;
 
 class MypageController extends Controller
 {
@@ -11,12 +12,22 @@ class MypageController extends Controller
     public function index() {
         // ログインユーザーのfavoriteとそれに紐づく漫画情報も取得
         $favorites = Bookmark::where('user_id', auth()->id())
-            ->where('type', 'favorite')->with('manga')->get();
+            ->where('type', 'favorite')
+            ->with('manga')
+            ->get();
 
         $wantToReads = Bookmark::where('user_id', auth()->id())
-            ->where('type', 'want_to_read')->with('manga')->get();
+            ->where('type', 'want_to_read')
+            ->with('manga')
+            ->get();
+
+        // ログインユーザーのレビューを新しい順で取得
+        $reviews = Review::where('user_id', auth()->id())
+            ->with('manga')
+            ->latest()
+            ->get();
         // お気に入り情報を表示
-        return view('mypage.index', compact('favorites', 'wantToReads'));
+        return view('mypage.index', compact('favorites', 'wantToReads', 'reviews'));
     }
 
 }

@@ -151,8 +151,12 @@
                                     <div class="mb-4 p-4 bg-gray-50 rounded">
                                         <div class="flex justify-between items-center">
                                             <div>
-                                                <span class="text-yellow-500">{{ str_repeat('★', $review->rating) }}{{ str_repeat('⭐︎', 5 - $review->rating) }}</span>
-                                                <span class="text-sm text-gray-500 ml-2">{{ $review->user->name }}</span>
+                                                <span class="text-yellow-500">
+                                                    {{ str_repeat('★', $review->rating) }}{{ str_repeat('⭐︎', 5 - $review->rating) }}
+                                                </span>
+                                                <span class="text-sm text-gray-500 ml-2">
+                                                    {{ $review->user->name }}
+                                                </span>
                                             </div>
                                             @if (auth()->check() && auth()->id() === $review->user_id)
                                                 <form action="/reviews/{{ $review->id }}" method="post">
