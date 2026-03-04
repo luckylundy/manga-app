@@ -6,6 +6,7 @@ use App\Http\Controllers\MypageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TopController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\RecommendController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -21,6 +22,8 @@ Route::delete('/bookmarks/{id}', [BookmarkController::class, 'destroy'])->middle
 Route::get('/mypage', [MypageController::class, 'index'])->middleware('auth');
 Route::post('/reviews', [ReviewController::class, 'store'])->middleware('auth');
 Route::delete('/reviews/{id}', [ReviewController::class, 'destroy'])->middleware('auth');
+Route::get('/recommend', [RecommendController::class, 'index'])->middleware('auth');
+Route::post('/recommend', [RecommendController::class, 'ask'])->middleware('auth');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
