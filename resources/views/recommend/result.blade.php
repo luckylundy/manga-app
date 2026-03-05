@@ -13,10 +13,10 @@
                     <h3 class="font-bold text-lg mb-2">あなたの質問</h3>
                     <p class="mb-6 p-4 bg-gray-50 rounded">{{ $question }}</p>
 
-                    <h3 class="font-bold text-lg mb-2"></h3>
+                    <h3 class="font-bold text-lg mb-2">AIのおすすめ</h3>
                     <div class="prose max-w-none">
-                        {{-- HTMLタグを無効化する --}}
-                        {{!! nl2br(e($answer)) !!}}
+                        {{-- サニタイズはaskメソッドの中で実施済み --}}
+                        {!! $answer !!}
                     </div>
                 </div>
             </div>
