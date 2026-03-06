@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
 
 class RecommendController extends Controller
 {
@@ -46,10 +45,16 @@ class RecommendController extends Controller
         }
         // text内にAIの回答が格納されているので取得して$answerに格納
         $answer = $response->json()['content'][0]['text'];
-        // 不要な記号を除去
-        $answer = str_replace(['{', '}', '"""'], '', $answer);
-        // エスケープ・改行処理
-        $answer = nl2br(e($answer));
+        // ```jsonと```を取り除く
+        $answer = preg_replace('/^```json\s*/m', '', $answer);
+        $answer = preg_replace('/^```\s*$/m', '', $answer);
+        $answer = trim($answer);
+        // dd($answer);
+        $answer = json_decode($answer, true);
+        // json_decodeが失敗した場合のnullチェック
+        if (!$answer) {
+            return back()->with('message', 'AIからの応答を取得できませんでした。もう一度お試しください。');
+        }
         return view('recommend.result', compact('question', 'answer'));
     }
 
@@ -57,13 +62,20 @@ class RecommendController extends Controller
     private function buildSystemPrompt() {
         return "あなたは漫画の専門家です。以下の回答ルールを厳守し、ユーザーの要望に合った漫画をおすすめしてください。
 
-        回答ルール：
-        - プレーンテキストのみで出力する
-        - 絶対に回答を引用符、クォーテーション、波括弧、バッククォート、トリプルクォートなどで囲まない
-        - Markdownの記法は一切使わない
-        - 回答の最初の1文字は必ず日本語のひらがな・カタカナ・漢字で始める
-        - 3〜5作品をおすすめする
-        - 各作品について、タイトルとおすすめ理由を簡潔に説明する
-        - 日本語で回答する";
+    回答ルール：
+    - 必ず以下のJSON形式のみで出力する
+    - JSONの前後に余計な文字は一切つけない
+    - ```json などのマークダウン記法で囲まない  // ← 追加
+    - 最初の文字は必ず { にする
+    - 日本語で回答する
+
+    出力形式：
+    {
+        \"intro\": \"導入文をここに\",
+        \"mangas\": [
+            {\"title\": \"タイトル\", \"reason\": \"おすすめ理由\"},
+            {\"title\": \"タイトル\", \"reason\": \"おすすめ理由\"}
+        ]
+    }";
     }
 }

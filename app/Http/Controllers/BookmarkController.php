@@ -41,8 +41,8 @@ class BookmarkController extends Controller
             'manga_id' => $manga->id,
             'type' => $request->type,
         ]);
-        // メッセージと一緒に元のページに戻る
-        return back()->with('message', 'ブックマークしました！');
+        // 詳細ページにリダイレクト
+        return redirect("/mangas/{$manga->mal_id}")->with('message', 'ブックマークしました！');
     }
 
     // ブックマークの削除
@@ -51,7 +51,7 @@ class BookmarkController extends Controller
         $bookmark = Bookmark::where('id', $id)->where('user_id', auth()->id())->firstOrFail();
         // 該当ブックマークを削除
         $bookmark->delete();
-        // 直前の画面に戻る
-        return back()->with('message', 'ブックマークを削除しました！');
+        // 詳細ページにリダイレクト
+        return redirect("/mangas/{$bookmark->manga->mal_id}")->with('error', 'ブックマークを削除しました！');
     }
 }
