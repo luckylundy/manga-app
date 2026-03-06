@@ -20,8 +20,8 @@ class MangaController extends Controller
         $query = $request->q;
         // 最初の検索時は$pageがないので1ページ目として1を設定
         $page = $request->page ?? 1;
-        // 検索文字列でJikan APIにリクエストを送る
-        $response = Http::get('https://api.jikan.moe/v4/manga', [
+        // 検索文字列でJikan APIにリクエストを送る(10秒でエラーページに遷移)
+        $response = Http::timeout(10)->get('https://api.jikan.moe/v4/manga', [
             'q' => $query,
             'limit' => 10,
             'page' => $page,
@@ -41,8 +41,8 @@ class MangaController extends Controller
 
     // 漫画詳細ページ
     public function show($mal_id) {
-        // Jikan APIから特定の漫画の情報を取得する
-        $response = Http::get("https://api.jikan.moe/v4/manga/{$mal_id}");
+        // Jikan APIから特定の漫画の情報を取得する(10秒でエラーページに遷移)
+        $response = Http::timeout(10)->get("https://api.jikan.moe/v4/manga/{$mal_id}");
         // Jikan APIからのレスポンスがなかった場合
         if ($response->failed() || !isset($response->json()['data'])) {
             return back()->with('message', 'APIからデータを取得できませんでした。少し時間をおいて再度お試しください。');
