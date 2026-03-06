@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold text-gray-800">
-            漫画レコメンドシステム
+            漫画コンパス
         </h2>
     </x-slot>
 
@@ -62,6 +62,7 @@
                         box-shadow: 0 0 0 4px rgba(99,102,241,0.3), 0 8px 32px rgba(0,0,0,0.2);
                     ">
                         <input
+                            id="search-input"
                             type="text"
                             name="q"
                             placeholder="タイトルを入力..."
@@ -180,7 +181,7 @@
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
 
                 {{-- 検索カード --}}
-                <a href="/mangas/search" style="text-decoration: none;">
+                <a href="#" onclick="focusSearch(); return false;" style="text-decoration: none;">
                     <div style="
                         background: white; border-radius: 16px; padding: 28px;
                         box-shadow: 0 1px 3px rgba(0,0,0,0.08);
@@ -255,8 +256,11 @@
                             justify-content: center; margin-bottom: 20px;
                         ">
                             <svg width="22" height="22" fill="none" stroke="#a855f7" stroke-width="2" viewBox="0 0 24 24">
-                                <circle cx="12" cy="12" r="10"/>
-                                <path d="M12 16v-4M12 8h.01"/>
+                                <rect x="3" y="8" width="18" height="12" rx="2"/>
+                                <path d="M12 8V4M8 4h8"/>
+                                <circle cx="9" cy="14" r="1.5" fill="#a855f7"/>
+                                <circle cx="15" cy="14" r="1.5" fill="#a855f7"/>
+                                <path d="M9 18h6"/>
                             </svg>
                         </div>
                         <h3 style="font-weight: 700; color: #1f2937; font-size: 1.125rem; margin-bottom: 8px;">AIおすすめ</h3>
@@ -270,5 +274,28 @@
             </div>
         </div>
     </div>
+
+    {{-- 検索カード押下時の挙動 --}}
+    <script>
+    function focusSearch() {
+        const input = document.getElementById('search-input');
+
+        // 検索バーまでスクロール
+        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        // 少し待ってからフォーカス＋光らせる
+        setTimeout(() => {
+            input.focus();
+            // 検索バーの枠を光らせる
+            input.closest('div').style.boxShadow
+                = '0 0 0 4px rgba(255,255,255,0.9), 0 8px 32px rgba(255,255,255,0.4)';
+            // 1.5秒後に元に戻す
+            setTimeout(() => {
+                input.closest('div').style.boxShadow
+                    = '0 0 0 4px rgba(99,102,241,0.3), 0 8px 32px rgba(0,0,0,0.2)';
+            }, 1500);
+        }, 400);
+    }
+    </script>
 
 </x-app-layout>

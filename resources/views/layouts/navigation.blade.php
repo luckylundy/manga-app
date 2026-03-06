@@ -5,8 +5,19 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                    <a href="/">
+                        <div style="width:36px;height:36px;background:linear-gradient(135deg,#38bdf8,#6366f1);border-radius:10px;display:flex;align-items:center;justify-content:center;">
+                            <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="9" stroke="white" stroke-width="1.5" fill="white" fill-opacity="0.15"/>
+                                <circle cx="12" cy="12" r="1.8" fill="white"/>
+                                <path d="M12 3 L9.5 12 L12 10 L14.5 12 Z" fill="white"/>
+                                <path d="M12 21 L14.5 12 L12 14 L9.5 12 Z" fill="white" opacity="0.45"/>
+                                <line x1="12" y1="3.5" x2="12" y2="5" stroke="white" stroke-width="1.2" opacity="0.6"/>
+                                <line x1="20.5" y1="12" x2="19" y2="12" stroke="white" stroke-width="1.2" opacity="0.6"/>
+                                <line x1="3.5" y1="12" x2="5" y2="12" stroke="white" stroke-width="1.2" opacity="0.6"/>
+                                <line x1="12" y1="20.5" x2="12" y2="19" stroke="white" stroke-width="1.2" opacity="0.6"/>
+                            </svg>
+                        </div>
                     </a>
                 </div>
 
