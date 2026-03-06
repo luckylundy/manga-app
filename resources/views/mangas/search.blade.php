@@ -56,12 +56,14 @@
                             {{ $manga['title_japanese'] ?? $manga['title'] }}
                         </p>
                         <div style="display:flex;align-items:center;gap:4px;">
+                            {{-- スコアがある場合 --}}
                             @if ($manga['score'])
                                 <svg width="11" height="11" fill="#f59e0b" viewBox="0 0 24 24">
                                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                                 </svg>
                                 <span style="font-size:0.75rem;color:#6b7280;">{{ $manga['score'] }}</span>
                             @else
+                            {{-- スコアがない場合 --}}
                                 <svg width="11" height="11" fill="#d1d5db" viewBox="0 0 24 24">
                                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                                 </svg>
@@ -153,22 +155,3 @@
     </style>
 
 </x-app-layout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
