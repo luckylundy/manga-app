@@ -1,59 +1,120 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 漫画コンパス (MangaCompass)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## アプリ概要
 
-## About Laravel
+2010年代後半から、漫画は紙媒体だけでなくアプリなどでも気軽に読めるようになりました。  
+娯楽に事欠かなくなった反面、**媒体が多すぎて漫画探しに疲れていませんか？**
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+このアプリは、そんな「漫画は好きだけど、探すのがめんどくさい」という人のために作りました。  
+検索機能とAIおすすめ機能を組み合わせることで、あなたにぴったりの漫画をナビゲートします。
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+また、自分の好きなものをあまり人に知られたくないという人も多いと考え、  
+**ユーザー同士の接触を極力排除**しました。人目を気にせず、好きな漫画を探してみてください。
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+🔗 **URL**: https://manga-app-production.up.railway.app
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 使用技術
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+| カテゴリ | 技術 |
+|------|------|
+| バックエンド | PHP 8.4 / Laravel 12 |
+| フロントエンド | Blade / Tailwind CSS / Vite |
+| データベース | MySQL |
+| 外部API | Jikan API（漫画データ取得） |
+| AI | Anthropic Claude API（AIおすすめ機能） |
+| インフラ | Railway |
+| バージョン管理 | GitHub |
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## システム構成図
 
-### Premium Partners
+```mermaid
+graph TD
+    A[ブラウザ] --> B[Railway / Laravel]
+    B --> C[(MySQL)]
+    B --> D[Jikan API\n漫画データ取得]
+    B --> E[Anthropic Claude API\nAIおすすめ機能]
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+## 機能一覧
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- **漫画検索** - タイトルで漫画を検索。スコアや巻数、あらすじなど詳細情報を確認できる
+- **ブックマーク** - お気に入りや読みたいリストに登録して管理できる
+- **レビュー** - 読んだ漫画に星評価とコメントを残せる
+- **マイページ** - ブックマークとレビューを一覧で確認できる
+- **AIおすすめ** - 読みたい雰囲気を自由に入力するだけで、AIがぴったりの漫画を提案する
+- **ユーザー認証** - 新規登録・ログイン・ログアウト
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## テストアカウント
 
-## Security Vulnerabilities
+| 項目 | 内容 |
+|------|------|
+| メールアドレス | test@example.com |
+| パスワード | password123 |
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## ローカル環境構築手順
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+# リポジトリをクローン
+git clone https://github.com/luckylundy/manga-app.git
+cd manga-app
+
+# 環境変数ファイルを作成
+cp .env.example .env
+
+# .envを編集（DB設定・APIキーを設定）
+# DB_CONNECTION=sqlite
+# ANTHROPIC_API_KEY=your_api_key
+
+# パッケージインストール
+composer install
+npm install
+
+# アプリケーションキー生成
+php artisan key:generate
+
+# マイグレーション実行
+php artisan migrate
+
+# フロントエンドビルド
+npm run build
+
+# サーバー起動
+php artisan serve
+```
+
+ブラウザで `http://localhost:8000` にアクセス
+
+---
+
+## 工夫した点・苦労した点
+
+### AIおすすめ機能の表示設計
+Claude APIからの回答をそのまま表示するのではなく、**JSONフォーマットで出力させる**ように設計しました。  
+「イントロ文」と「漫画ごとのおすすめ理由」を分離することで、読みやすくおしゃれなUIを実現しました。
+
+### 外部APIからのデータ取得
+Jikan API（MyAnimeListの非公式API）を使い、8万冊以上の漫画データを取得しています。  
+APIのレスポンス構造を理解し、必要なデータのみ抽出する設計を行いました。
+
+### 統一感のあるUI設計
+インディゴ〜パープルのグラデーションをアプリ全体のメインカラーとして採用し、  
+ナビゲーションロゴ・ヒーローセクション・AIボタンなど各所で統一感を意識しました。
+
+---
+
+## 今後の改善予定
+
+- テストコードの追加（PHPUnit / Pest）
+- Docker化による環境構築の簡易化
+- GitHub ActionsによるCI/CD構築
+- レスポンシブデザインのさらなる最適化
