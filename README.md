@@ -16,9 +16,16 @@
 ---
 
 ## テストアカウント
+### メールアドレス
+
 ```
-メールアドレス: test@example.com
-パスワード: password123
+test@example.com
+```
+
+### パスワード
+
+```
+password123
 ```
 
 ---
