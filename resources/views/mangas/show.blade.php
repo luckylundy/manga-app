@@ -30,10 +30,10 @@
 
         {{-- メインカード --}}
         <div style="background:white;border-radius:16px;padding:28px;box-shadow:0 1px 3px rgba(0,0,0,0.06);border:1px solid #f3f4f6;">
-            <div class="flex gap-6">
+            <div class="flex flex-col sm:flex-row gap-6">
 
                 {{-- 左側：表紙画像＋ブックマークボタン --}}
-                <div style="width:180px;flex-shrink:0;">
+                <div class="w-full sm:w-auto" style="flex-shrink:0;">
                     <img src="{{ $manga['images']['jpg']['image_url'] }}"
                         alt="{{ $manga['title'] }}"
                         style="width:100%;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,0.15);">
