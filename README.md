@@ -16,11 +16,10 @@
 ---
 
 ## テストアカウント
-
-| 項目 | 内容 |
-|------|------|
-| メールアドレス | test@example.com |
-| パスワード | password123 |
+```
+メールアドレス: test@example.com
+パスワード: password123
+```
 
 ---
 
@@ -44,8 +43,8 @@
 graph TD
     A[ブラウザ] --> B[Railway / Laravel]
     B --> C[(MySQL)]
-    B --> D[Jikan API\n漫画データ取得]
-    B --> E[Anthropic Claude API\nAIおすすめ機能]
+    B --> D[Jikan API]
+    B --> E[Anthropic Claude API]
 ```
 
 ---
