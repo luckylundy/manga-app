@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div>
             <h2 class="text-xl font-bold text-gray-800">マイページ</h2>
-            <p class="text-xs text-gray-400 mt-1">お気に入りや読みたいリストを管理できます</p>
+            <p class="text-xs text-gray-400 mt-1">お気に入りや読みたいリスト、自分のレビューを管理できます</p>
         </div>
     </x-slot>
 
