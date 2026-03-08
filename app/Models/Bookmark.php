@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Bookmark extends Model
 {
+    // テストでダミーデータを使用できるようにする
+    use HasFactory;
+
     // User,Mangaモデルとのリレーション
     public function user() {
         return $this->belongsTo(User::class);
