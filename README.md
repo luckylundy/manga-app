@@ -89,6 +89,7 @@ npm install
 php artisan key:generate
 
 # マイグレーション実行
+# ※ SQLiteファイルの作成確認が出たらYesを選択
 php artisan migrate
 
 # フロントエンドビルド
@@ -99,6 +100,38 @@ php artisan serve
 ```
 
 ブラウザで `http://localhost:8000` にアクセス
+
+---
+
+## Docker環境構築手順
+```bash
+# リポジトリをクローン
+git clone https://github.com/luckylundy/manga-app.git
+cd manga-app
+
+# 環境変数ファイルを作成
+cp .env.example .env.docker
+
+# .env.dockerを以下のように編集
+# DB_CONNECTION=mysql
+# DB_HOST=mysql
+# DB_PORT=3306
+# DB_DATABASE=manga_app
+# DB_USERNAME=manga_user
+# DB_PASSWORD=password
+# ANTHROPIC_API_KEY=your_api_key
+
+# パッケージインストール
+composer install
+
+# コンテナを起動（npm buildも自動実行されます）
+docker compose up -d
+
+# マイグレーション実行
+docker compose exec app php artisan migrate
+```
+
+ブラウザで `http://localhost:8080` にアクセス
 
 ---
 
