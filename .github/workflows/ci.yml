@@ -21,8 +21,8 @@ jobs:
       - name: Composerのインストール
         run: composer install
 
-      - name: .env.testingのセットアップ
-        run: cp .env.testing .env
+      - name: .envのセットアップ
+        run: cp .env.example .env
 
       - name: アプリケーションキーの生成
         run: php artisan key:generate
