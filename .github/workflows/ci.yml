@@ -27,5 +27,15 @@ jobs:
       - name: アプリケーションキーの生成
         run: php artisan key:generate
 
+      - name: Node.jsのセットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: フロントエンドのビルド
+        run: | 
+          npm install
+          npm run build
+
       - name: テストの実行
         run: php artisan test
