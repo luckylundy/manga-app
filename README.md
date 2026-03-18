@@ -1,6 +1,8 @@
 # 漫画コンパス (MangaCompass)
 ![CI](https://github.com/luckylundy/manga-app/actions/workflows/ci.yml/badge.svg)
 
+![デモ動画](https://github.com/user-attachments/assets/946a0229-0689-494c-9a2a-0b8f5ca42bc1)
+
 ## アプリ概要
 
 2010年代後半から、漫画は紙媒体だけでなくアプリなどでも気軽に読めるようになりました。  
